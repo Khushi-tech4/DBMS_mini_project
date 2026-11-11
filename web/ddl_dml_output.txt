@@ -1,0 +1,534 @@
+mysql> source scripts/06_ddl_dml_demos.sql
+Database changed
++------------------------------+
+| section                      |
++------------------------------+
+| ===== 1A. CREATE TABLE ===== |
++------------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected, 1 warning (0.05 sec)
+
+Query OK, 0 rows affected (0.17 sec)
+
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int         | NO   | PRI | NULL    | auto_increment |
+| note  | varchar(50) | NO   |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+2 rows in set (0.03 sec)
+
++------------------------------------------------------------+
+| section                                                    |
++------------------------------------------------------------+
+| ===== 1B. ALTER: add a column and a CHECK constraint ===== |
++------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+Query OK, 0 rows affected (0.19 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
++--------+---------------+------+-----+---------+----------------+
+| Field  | Type          | Null | Key | Default | Extra          |
++--------+---------------+------+-----+---------+----------------+
+| id     | int           | NO   | PRI | NULL    | auto_increment |
+| note   | varchar(50)   | NO   |     | NULL    |                |
+| amount | decimal(15,2) | NO   |     | 0.00    |                |
++--------+---------------+------+-----+---------+----------------+
+3 rows in set (0.01 sec)
+
++----------------------------------------------------------------------+
+| section                                                              |
++----------------------------------------------------------------------+
+| ===== 1C. ALTER: widen a column, add an index, rename a column ===== |
++----------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.89 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+Query OK, 0 rows affected (0.27 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+Query OK, 0 rows affected (0.20 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
++-------------+---------------+------+-----+---------+----------------+
+| Field       | Type          | Null | Key | Default | Extra          |
++-------------+---------------+------+-----+---------+----------------+
+| id          | int           | NO   | PRI | NULL    | auto_increment |
+| description | varchar(100)  | NO   | MUL | NULL    |                |
+| amount      | decimal(15,2) | NO   |     | 0.00    |                |
++-------------+---------------+------+-----+---------+----------------+
+3 rows in set (0.01 sec)
+
++----------+------------+---------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table    | Non_unique | Key_name      | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++----------+------------+---------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| demo_ddl |          0 | PRIMARY       |            1 | id          | A         |           0 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+| demo_ddl |          1 | idx_demo_note |            1 | description | A         |           0 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
++----------+------------+---------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+2 rows in set (0.00 sec)
+
++------------------------------------------------------+
+| section                                              |
++------------------------------------------------------+
+| ===== 1D. The new CHECK constraint is enforced ===== |
++------------------------------------------------------+
+1 row in set (0.00 sec)
+
+ERROR 3819 (HY000): Check constraint 'chk_demo_amount' is violated.
++--------------------------------------------------------------+
+| section                                                      |
++--------------------------------------------------------------+
+| ===== 1E. ALTER: drop the constraint, index and column ===== |
++--------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| id          | int          | NO   | PRI | NULL    | auto_increment |
+| description | varchar(100) | NO   |     | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
++------------------------+
+| section                |
++------------------------+
+| ===== 2A. INSERT ===== |
++------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 3 rows affected (0.03 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
++----+-------------+
+| id | description |
++----+-------------+
+|  1 | first       |
+|  2 | second      |
+|  3 | third       |
++----+-------------+
+3 rows in set (0.00 sec)
+
++------------------------+
+| section                |
++------------------------+
+| ===== 2B. UPDATE ===== |
++------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
++----+-----------------+
+| id | description     |
++----+-----------------+
+|  1 | first           |
+|  2 | second (edited) |
+|  3 | third           |
++----+-----------------+
+3 rows in set (0.00 sec)
+
++------------------------+
+| section                |
++------------------------+
+| ===== 2C. DELETE ===== |
++------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
++----+-----------------+
+| id | description     |
++----+-----------------+
+|  1 | first           |
+|  2 | second (edited) |
++----+-----------------+
+2 rows in set (0.00 sec)
+
++----------------------------+
+| section                    |
++----------------------------+
+| ===== 2D. DROP TABLE ===== |
++----------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.03 sec)
+
++----------------------+
+| demo_ddl_tables_left |
++----------------------+
+|                    0 |
++----------------------+
+1 row in set (0.01 sec)
+
++-------------------------------------------------------+
+| section                                               |
++-------------------------------------------------------+
+| ===== 3A. UPDATE on a real table, then ROLLBACK ===== |
++-------------------------------------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
++-------------+------------------------+
+| customer_id | address                |
++-------------+------------------------+
+|           4 | Temporary demo address |
++-------------+------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
++-------------+-----------------------+
+| customer_id | address               |
++-------------+-----------------------+
+|           4 | Whitefield, Bengaluru |
++-------------+-----------------------+
+1 row in set (0.00 sec)
+
++-----------------------------------------------------------+
+| section                                                   |
++-----------------------------------------------------------+
+| ===== 3B. INSERT then DELETE one temporary customer ===== |
++-----------------------------------------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 1 row affected (0.06 sec)
+
++-------------+------------+-----------+------------------------+
+| customer_id | first_name | last_name | email                  |
++-------------+------------+-----------+------------------------+
+|         900 | Temp       | User      | temp900@demo-bank.test |
++-------------+------------+-----------+------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 1 row affected (0.06 sec)
+
++---------------------+
+| temp_customers_left |
++---------------------+
+|                   0 |
++---------------------+
+1 row in set (0.00 sec)
+
++----------------------------------------------------------------------+
+| section                                                              |
++----------------------------------------------------------------------+
+| ===== 3C. DELETE blocked by a foreign key (ON DELETE RESTRICT) ===== |
++----------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+ERROR 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails (`financial_fraud_db`.`account`, CONSTRAINT `fk_account_customer` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`) ON DELETE RESTRICT ON UPDATE CASCADE)
+Query OK, 0 rows affected (0.00 sec)
+
++-------------------------+
+| customer_2_still_exists |
++-------------------------+
+|                       1 |
++-------------------------+
+1 row in set (0.00 sec)
+
++------------------------------------------------------------+
+| section                                                    |
++------------------------------------------------------------+
+| ===== 3D. UNIQUE constraint blocks a duplicate email ===== |
++------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+ERROR 1062 (23000): Duplicate entry 'aarav@demo-bank.test' for key 'customer.uq_customer_email'
++-----------------------------------------+
+| section                                 |
++-----------------------------------------+
+| ===== DONE: no demo tables remain ===== |
++-----------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> notee
+mysql> source scripts/06_ddl_dml_demos.sql
+Database changed
++------------------------------+
+| section                      |
++------------------------------+
+| ===== 1A. CREATE TABLE ===== |
++------------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+
+Query OK, 0 rows affected (0.20 sec)
+
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int         | NO   | PRI | NULL    | auto_increment |
+| note  | varchar(50) | NO   |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+2 rows in set (0.01 sec)
+
++------------------------------------------------------------+
+| section                                                    |
++------------------------------------------------------------+
+| ===== 1B. ALTER: add a column and a CHECK constraint ===== |
++------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+Query OK, 0 rows affected (0.09 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
++--------+---------------+------+-----+---------+----------------+
+| Field  | Type          | Null | Key | Default | Extra          |
++--------+---------------+------+-----+---------+----------------+
+| id     | int           | NO   | PRI | NULL    | auto_increment |
+| note   | varchar(50)   | NO   |     | NULL    |                |
+| amount | decimal(15,2) | NO   |     | 0.00    |                |
++--------+---------------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
++----------------------------------------------------------------------+
+| section                                                              |
++----------------------------------------------------------------------+
+| ===== 1C. ALTER: widen a column, add an index, rename a column ===== |
++----------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
++-------------+---------------+------+-----+---------+----------------+
+| Field       | Type          | Null | Key | Default | Extra          |
++-------------+---------------+------+-----+---------+----------------+
+| id          | int           | NO   | PRI | NULL    | auto_increment |
+| description | varchar(100)  | NO   | MUL | NULL    |                |
+| amount      | decimal(15,2) | NO   |     | 0.00    |                |
++-------------+---------------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
++----------+------------+---------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table    | Non_unique | Key_name      | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++----------+------------+---------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| demo_ddl |          0 | PRIMARY       |            1 | id          | A         |           0 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+| demo_ddl |          1 | idx_demo_note |            1 | description | A         |           0 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
++----------+------------+---------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+2 rows in set (0.01 sec)
+
++------------------------------------------------------+
+| section                                              |
++------------------------------------------------------+
+| ===== 1D. The new CHECK constraint is enforced ===== |
++------------------------------------------------------+
+1 row in set (0.00 sec)
+
+ERROR 3819 (HY000): Check constraint 'chk_demo_amount' is violated.
++--------------------------------------------------------------+
+| section                                                      |
++--------------------------------------------------------------+
+| ===== 1E. ALTER: drop the constraint, index and column ===== |
++--------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| id          | int          | NO   | PRI | NULL    | auto_increment |
+| description | varchar(100) | NO   |     | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
++------------------------+
+| section                |
++------------------------+
+| ===== 2A. INSERT ===== |
++------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
++----+-------------+
+| id | description |
++----+-------------+
+|  1 | first       |
+|  2 | second      |
+|  3 | third       |
++----+-------------+
+3 rows in set (0.00 sec)
+
++------------------------+
+| section                |
++------------------------+
+| ===== 2B. UPDATE ===== |
++------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
++----+-----------------+
+| id | description     |
++----+-----------------+
+|  1 | first           |
+|  2 | second (edited) |
+|  3 | third           |
++----+-----------------+
+3 rows in set (0.00 sec)
+
++------------------------+
+| section                |
++------------------------+
+| ===== 2C. DELETE ===== |
++------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
++----+-----------------+
+| id | description     |
++----+-----------------+
+|  1 | first           |
+|  2 | second (edited) |
++----+-----------------+
+2 rows in set (0.00 sec)
+
++----------------------------+
+| section                    |
++----------------------------+
+| ===== 2D. DROP TABLE ===== |
++----------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
++----------------------+
+| demo_ddl_tables_left |
++----------------------+
+|                    0 |
++----------------------+
+1 row in set (0.00 sec)
+
++-------------------------------------------------------+
+| section                                               |
++-------------------------------------------------------+
+| ===== 3A. UPDATE on a real table, then ROLLBACK ===== |
++-------------------------------------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
++-------------+------------------------+
+| customer_id | address                |
++-------------+------------------------+
+|           4 | Temporary demo address |
++-------------+------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
++-------------+-----------------------+
+| customer_id | address               |
++-------------+-----------------------+
+|           4 | Whitefield, Bengaluru |
++-------------+-----------------------+
+1 row in set (0.00 sec)
+
++-----------------------------------------------------------+
+| section                                                   |
++-----------------------------------------------------------+
+| ===== 3B. INSERT then DELETE one temporary customer ===== |
++-----------------------------------------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
++-------------+------------+-----------+------------------------+
+| customer_id | first_name | last_name | email                  |
++-------------+------------+-----------+------------------------+
+|         900 | Temp       | User      | temp900@demo-bank.test |
++-------------+------------+-----------+------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 1 row affected (0.01 sec)
+
++---------------------+
+| temp_customers_left |
++---------------------+
+|                   0 |
++---------------------+
+1 row in set (0.00 sec)
+
++----------------------------------------------------------------------+
+| section                                                              |
++----------------------------------------------------------------------+
+| ===== 3C. DELETE blocked by a foreign key (ON DELETE RESTRICT) ===== |
++----------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+ERROR 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails (`financial_fraud_db`.`account`, CONSTRAINT `fk_account_customer` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`) ON DELETE RESTRICT ON UPDATE CASCADE)
+Query OK, 0 rows affected (0.00 sec)
+
++-------------------------+
+| customer_2_still_exists |
++-------------------------+
+|                       1 |
++-------------------------+
+1 row in set (0.00 sec)
+
++------------------------------------------------------------+
+| section                                                    |
++------------------------------------------------------------+
+| ===== 3D. UNIQUE constraint blocks a duplicate email ===== |
++------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+ERROR 1062 (23000): Duplicate entry 'aarav@demo-bank.test' for key 'customer.uq_customer_email'
++-----------------------------------------+
+| section                                 |
++-----------------------------------------+
+| ===== DONE: no demo tables remain ===== |
++-----------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> notee
